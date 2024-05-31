@@ -1,1 +1,1 @@
-Good readme coming soon, too lazy for now
+Good readme and file clarity coming soon, too lazy for now
