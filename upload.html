@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <h2>Subir una Foto</h2>
-        <!-- Arreglar el tema de la ip para que funcione el http sin usar el localhost -->
+        <h2>Upload a Picture</h2>
+        <!-- Only works in localhost for now, will be modified later -->
         <form action="http://127.0.0.1:8000" method="post" enctype="multipart/form-data">
-            <label for="file">Elige una foto:</label>
+            <label for="file">Choose a picture:</label>
             <input type="file" id="file" name="file" accept="image/*"><br><br>
-            <input type="hidden" name="filename" id="nombreArchivo">
+            <input type="hidden" name="filename" id="fileName">
             <script>
-                function obtenerSistemaOperativo() {
+                function getOs() {
                     var userAgent = navigator.userAgent.toLowerCase();
 
                     console.log(userAgent);
@@ -16,30 +16,39 @@
                     var op = userAgent.indexOf("windows");
                     var index = userAgent.indexOf(")");
 
+                    //Formatting the string and stuff, dont worry about this too much
                     if (op !== -1) {
-                        // Extraer la parte desde el inicio hasta el primer paréntesis
                         var ostr = userAgent.substring(op, index);
                         var ostrfix = ostr.replace(/\s+/g, "-");
-                        
-                        // Imprimir la parte antes del paréntesis
-                        console.log("Parte antes del paréntesis:", ostrfix);
+                        return ostrfix;
                     } else {
-                        console.log("No se encontró ningún paréntesis en la cadena.");
+                        console.log("Unspecified or using unknown os");
+                        return 2
                     }
-                    
-                    return ostrfix
                 }
 
                 // Get the actual date
                 var date = new Date();
-                
+
+                var browser = getOs();
+                if (browser == 2){
+                    browser = 'unknown';
+                }
+
                 // Format the date to a string
-                var nombreArchivo = obtenerSistemaOperativo() + '_' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '.jpg';
+                var fileName = browser +
+                '_' + 
+                date.getFullYear() +
+                '-' + (date.getMonth() + 1) +
+                '-' + date.getDate() +
+                '_' + date.getHours() +
+                '-' + date.getMinutes() +
+                '-' + date.getSeconds() + '.jpg';
     
                 //Assign the name to the input id that's going to be saved in the uploads folder
-                document.getElementById('nombreArchivo').value = nombreArchivo;
+                document.getElementById('fileName').value = fileName;
             </script>
-            <input type="submit" value="Subir Foto">
+            <input type="submit" value="Upload File">
         </form>
     </body>
 </html>
