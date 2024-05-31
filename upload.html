@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h2>Subir una Foto</h2>
+        <!-- Arreglar el tema de la ip para que funcione el http sin usar el localhost -->
+        <form action="http://127.0.0.1:8000" method="post" enctype="multipart/form-data">
+            <label for="file">Elige una foto:</label>
+            <input type="file" id="file" name="file" accept="image/*"><br><br>
+            <input type="hidden" name="filename" id="nombreArchivo">
+            <script>
+                function obtenerSistemaOperativo() {
+                    var userAgent = navigator.userAgent.toLowerCase();
+
+                    console.log(userAgent);
+
+                    var op = userAgent.indexOf("windows");
+                    var index = userAgent.indexOf(")");
+
+                    if (op !== -1) {
+                        // Extraer la parte desde el inicio hasta el primer paréntesis
+                        var ostr = userAgent.substring(op, index);
+                        var ostrfix = ostr.replace(/\s+/g, "-");
+                        
+                        // Imprimir la parte antes del paréntesis
+                        console.log("Parte antes del paréntesis:", ostrfix);
+                    } else {
+                        console.log("No se encontró ningún paréntesis en la cadena.");
+                    }
+                    
+                    return ostrfix
+                }
+
+                // Get the actual date
+                var date = new Date();
+                
+                // Format the date to a string
+                var nombreArchivo = obtenerSistemaOperativo() + '_' + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + '_' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '.jpg';
+    
+                //Assign the name to the input id that's going to be saved in the uploads folder
+                document.getElementById('nombreArchivo').value = nombreArchivo;
+            </script>
+            <input type="submit" value="Subir Foto">
+        </form>
+    </body>
+</html>
