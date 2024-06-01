@@ -3,7 +3,7 @@
     <body>
         <h2>Upload a Picture</h2>
         <!-- Only works in localhost for now, will be modified later -->
-        <form action="http://127.0.0.1:8000" method="post" enctype="multipart/form-data">
+        <form action="{url}" method="post" enctype="multipart/form-data">
             <label for="file">Choose a picture:</label>
             <input type="file" id="file" name="file" accept="image/*"><br><br>
             <input type="hidden" name="filename" id="fileName">
